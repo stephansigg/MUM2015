@@ -226,223 +226,117 @@ For instance, the title itself, especially in app recommendation systems, cannot
 On the contrary, the more advanced summarization methods lead to reliable summaries, since many aspects are taken into account in their process.
 Summarization as a feature selection method is a promising technique to effectively improve the performance of document classification for app recommendation systems.
 
-\section{Methodology}\label{sectionMethodology}
-The proposed DC system utilizes the advantages of using
-summary instead of the complete document, since it includes
-the standpoints and main information in a shorter format.
-The training phase starts with text preprocessing which
-involves tokenization, stopword removal and stemming. To
-improve the quality of features, WordNet and porter stemmer
-are applied in this step. The documents will be then
-summarized by a graph-based text summarization approach
-proposed by [10],in which sentences constructed the summary
-are chosen by shortest path algorithms. After replacing the
-documents with their related summaries, a specific feature set
-for each category will be determined by considering the words
-of summarized documents as the final feature set. K-Nearest
-Neighbor (KNN) algorithm is used in the test phase to classify
-unlabeled documents in the test set and assign each to its
-relevant category.
+\textbf{Probably add: How does the own contribution differ from the related work}
 
+\section{Methodology}\label{sectionMethodology}
+The proposed DC system utilizes the advantages of using summary instead of the complete document, since it includes the standpoints and main information in a shorter format.
+The training phase starts with text preprocessing which involves tokenization, stopword removal and stemming. 
+To improve the quality of features, WordNet and porter stemmer are applied in this step. 
+The documents will be then summarized by a graph-based text summarization approach proposed by~\cite{sjobergh2006extraction}, in which sentences constructed the summary are chosen by shortest path algorithms. 
+After replacing the documents with their related summaries, a specific feature set for each category will be determined by considering the words
+of summarized documents as the final feature set. 
+K-Nearest Neighbor (KNN) algorithm is used in the test phase to classify unlabeled documents in the test set and assign each to its relevant category.
 
 \subsection{Preprocessing}\label{sectionPreprocessing}
-The performance of ML is highly influenced by data
-preprocessing, and the quality of the input data determines the
-quality of output data. Mapping this fact to the DC process, an
-efficient preprocessing technique should be employed to
-evaluate the words (features) and choose the dominant ones to
-be used later in classifier training phase. Irrelevant and
-redundant words make it difficult for the classifier to decide.
-Morphological analysis is a productive step in the quality
-improvement of input textual data, which is divided into
-tokenization, stemming and recognition of ending of records
-[11]. During the tokenization, a dataset of meaningful words
-(tokens) - separated by a special ‘space’ character - will be
-produced and other tokens such as punctuation, numbers etc.
-will be eliminated. Stemming is the process of transforming
-the inflections of words into their related stem (root) [12].
-Many automatic stemming approaches have been proposed
-like successor variety stemmer, n-gram method and affix
-removal stemmer. The most widely used of all the stemmers
-is the porter stemmer, which was first presented in 1980. The
-stemmer is a context sensitive suffix removal algorithm and is
-available in many languages. It utilizes several sequential
-steps - five or six- to find the stem. The improvement of
-performance is expected with regards to the fact that
-stemming boosts the precision and recall in IR systems.
-Finally, documents' segments (e.g. sentence, paragraph) are
-also be recognized by searching end of records like '.','!'.
-Detected segments later will be used as desired units [11].
-WordNet [13] is a useful tool for computational linguistics
-and natural language processing (NLP), because of its well-
-designed structure. The synonymy in WordNet is an important
-semantic relation between words, for example shut and close
-or car and automobile. This english-based lexical database,
-uses the concept of synset which is a group of nouns, verbs,
-adjectives and adverbs cognitively synonyms. Synsets share
-the same concept in many contexts, are grouped in WordNet.
-In addition, each pair of grouped synsets are linked by using
-conceptual relations [14]. The selection of words from the
-synonyms’ perspective, is performed with regard to the co-
-occurrence of terms in a category which belongs to the same
-synset signature. The synset signature cross-referencing has
-the main role in selecting the correct sense for the terms co-
-occurrence in a category. The process is performed by
-examining the list of noun synsets for all senses in order to
-acquire the similarity in the signatures. The semantic context
-of a category would be formed by the senses of different
-words which their synsets overlap. The equal synsets with the
-same signatures would be added to the feature lists of the
-category in order to select the original terms.
+The performance of Machine Learning is highly influenced by data preprocessing, and the quality of the input data determines the quality of output data. 
+Mapping this fact to document classification, an efficient preprocessing technique should be employed to evaluate the words (features) and choose the dominant ones to be used later in classifier training phase. 
+Irrelevant and redundant words make it difficult for the classifier to decide.
+Morphological analysis is a productive step in the quality improvement of input textual data, which is divided into tokenization, stemming and recognition of ending of records [THIS IS NO REFERENCE !!!]. 
+During the tokenization, a dataset of meaningful words (tokens) - separated by a special ‘space’ character - will be produced and other tokens such as punctuation, numbers etc. will be eliminated. 
+Stemming is the process of transforming the inflections of words into their related stem (root)\cite{Allan:2003:SLM:860435.860548}.
+Many automatic stemming approaches have been proposed like successor variety stemmer, n-gram method and affix removal stemmer. 
+The most widely used of all the stemmers is the porter stemmer, which was first presented in 1980. 
+The stemmer is a context sensitive suffix removal algorithm and is available in many languages. 
+It utilizes several sequential steps - five or six- to find the stem. 
+The improvement of performance is expected with regards to the fact that stemming boosts the precision and recall in IR systems.
+Finally, documents' segments (e.g. sentence, paragraph) are also be recognized by searching end of records like '.','!'.
+Detected segments later will be used as desired units [THIS IS NO REFERENCE !!!].
 
+WordNet~\cite{miller1990introduction} is a useful tool for computational linguistics and natural language processing (NLP), because of its well-
+designed structure. 
+The synonymy in WordNet is an important semantic relation between words, for example shut and close or car and automobile. 
+This english-based lexical database, uses the concept of synset which is a group of nouns, verbs, adjectives and adverbs cognitively synonyms.
+Synsets share the same concept in many contexts, are grouped in WordNet.
+In addition, each pair of grouped synsets are linked by using conceptual relations~\cite{1410799}. 
+The selection of words from the synonyms’ perspective, is performed with regard to the co-occurrence of terms in a category which belongs to the same synset signature. 
+The synset signature cross-referencing has the main role in selecting the correct sense for the terms co-occurrence in a category. The process is performed by examining the list of noun synsets for all senses in order to acquire the similarity in the signatures. 
+The semantic context of a category would be formed by the senses of different words which their synsets overlap.
+The equal synsets with the same signatures would be added to the feature lists of the category in order to select the original terms.
 
 \subsection{Document Summarization}\label{sectionSummarization}
-To reduce the high dimensionality of feature space, the
-documents are required to be shortened while preserving the
-key points. Since summary is a short version of a document,
-Summarization as an effective method contributes to the
-objective.
-A set of words, sentences or paragraphs - derived of a text
-document or a collection of documents - is called a summary
-if it points to the same information or concepts as the original
-one(s). Two common methods for generating a summary are
-abstractive summarization and extractive summarization. The
-summary produced by the first method, is mostly semantic-
-based and might not contain exact original words. In contrast,
-extractive methods create the summary made of genuine
-words of the reference document(s). In this work extractive
-summarization is considered which is strongly associated to
-feature selection, due to straight forward generation of a
+To reduce the high dimensionality of feature space, the documents are required to be shortened while preserving the key points. 
+Since summary is a short version of a document, summarization as an effective method contributes to the objective.
+A set of words, sentences or paragraphs - derived of a text document or a collection of documents - is called a summary if it points to the same information or concepts as the original one(s). 
+Two common methods for generating a summary are abstractive summarization and extractive summarization. 
+The summary produced by the first method, is mostly semantic-based and might not contain exact original words. 
+In contrast, extractive methods create the summary made of genuine words of the reference document(s). 
+In this work extractive summarization is considered which is strongly associated to feature selection, due to straight forward generation of a
 summary.
-The adopted graph-based summarization method in this
-work, is suggested by [10]. To represent the original document
-in the graph format, first it is divided into sentences. Each
-sentence is now considered as a vertice, and there will be a
-weighted edge between each pair of sentences, if they share
-one word at least. In addition to the relation edge, each
-sentence is also connected to the following sentence with an
-unweighted edge to facilitate the navigation through the graph.
-The assigned cost to each edge denotes high similarity, in
-case of low cost and vice versa. The cost of edge from
-sentence i (Si) to the sentence j (Sj) is calculated as:
+The adopted graph-based summarization method in this work, is suggested by~\cite{sjobergh2006extraction}. 
+To represent the original document in the graph format, first it is divided into sentences. 
+Each sentence is now considered as a vertice, and there will be a weighted edge between each pair of sentences, if they share one word at least.
+In addition to the relation edge, each sentence is also connected to the following sentence with an unweighted edge to facilitate the navigation through the graph.
+The assigned cost to each edge denotes high similarity, in case of low cost and vice versa. 
+The cost of edge from sentence i (Si) to the sentence j (Sj) is calculated as:
 %%%%%%%%%%%%%%%%%%
 
-Overlapi,j returns the number of words shared between
-sentence i and j. In the proposed summarization only words of
-four characters or more are considered, but in our approach
-this condition is discarded. The reason is that stemming
-reduces the words into their roots, so the number of characters
-within a word will also be reduced, and this may cause
-inaccuracy.
-When the graph is built, the next step would be to generate
-the summary with the shortest path approach deployment, in
-which the target node corresponds to the last sentence in the
-main document and the source node is the first sentence. The
-traverse starts at the source node, and then all the cost values
-of the out coming edges are added to a priority queue. The
-path with the minimum cost will be discovered , as soon as it
-ends with the target node. The summary then will be created
-by existing sentences in this path. All the summarized
-documents of each category, then make a feature set in the
-bag-of-words format.
-
+Overlapi,j returns the number of words shared between sentence i and j. 
+In the proposed summarization only words of four characters or more are considered, but in our approach this condition is discarded. 
+The reason is that stemming reduces the words into their roots, so the number of characters within a word will also be reduced, and this may cause inaccuracy.
+When the graph is built, the next step would be to generate the summary with the shortest path approach deployment, in which the target node corresponds to the last sentence in the main document and the source node is the first sentence. 
+The traverse starts at the source node, and then all the cost values of the out coming edges are added to a priority queue.
+The path with the minimum cost will be discovered, as soon as it ends with the target node. 
+The summary then will be created by existing sentences in this path. 
+All the summarized documents of each category, then make a feature set in the bag-of-words format.
 
 \subsection{Classification}\label{sectionClassification}
-C. Classification
-KNN [15] is a classical statistical pattern recognition
-algorithm. Its idea is very simple: Similarity between a text
-document to be classified and all train samples in each
-category will be calculated according to a similarity
-computing strategy. Finally it will be assigned to the category
-with the maximum sum of similarities.
-After feature selection phase, there is only one document
-in each train set category which is actually our feature set. In
-fact, the similarity has to be computed only between the test
-document and just one train sample.
+KNN~\cite{5190062} is a classical statistical pattern recognition algorithm. 
+Its idea is very simple: Similarity between a text document to be classified and all train samples in each category will be calculated according to a similarity computing strategy.
+Finally it will be assigned to the category with the maximum sum of similarities.
+After feature selection phase, there is only one document in each train set category which is actually our feature set. 
+In fact, the similarity has to be computed only between the test document and just one train sample.
 %%%%%%%%%%%%%%%%%%%%%%%%
 
-Where x is the document to be classified, fi is the ith
-feature set, ci is the ith category, and y(fi,ci) {0,1} denotes
-whether feature set belongs to category c i ( if belongs to ci
-then y(fi,ci) 1, otherwise y(fi,ci ) 0).
+Where x is the document to be classified, fi is the ith feature set, ci is the ith category, and y(fi,ci) {0,1} denotes whether feature set belongs to category c i ( if belongs to ci then y(fi,ci) 1, otherwise y(fi,ci ) 0).
 
 \subsection{Evaluation}
-Precision, Recall, and F-measure are widely used among
-the various methods to determine the effectiveness of
-automatic TC. These measures are computed with regards to
-classification of a text. A document can be classified [16] as
-True Positive(TP): a document being classified correctly as
-relating to a category , False Positive(FP): a document that is
-said to be related to the category incorrectly, False
-Negative(FN): a document that is not marked as related to a
-category but should be, and True Negative(TN): a document
-that should not be marked as being in a particular category and
+Precision, Recall, and F-measure are widely used among the various methods to determine the effectiveness of automatic text classification. 
+These measures are computed with regards to classification of a text. 
+A document can be classified~\cite{ikonomakis2005text} as True Positive(TP): a document being classified correctly as relating to a category, False Positive(FP): a document that is said to be related to the category incorrectly, False Negative(FN): a document that is not marked as related to a category but should be, and True Negative(TN): a document that should not be marked as being in a particular category and
 is not.
-Both precision and recall are therefore based on an
-understanding and measure of relevance. Recall is the
-proportion of relevant material actually retrieved, and
-Precision is the proportion of retrieved material actually
-relevant. Precision and Recall are defined as follow:
+Both precision and recall are therefore based on an understanding and measure of relevance. 
+Recall is the proportion of relevant material actually retrieved, and Precision is the proportion of retrieved material actually relevant.
+Precision and Recall are defined as follow:
 %%%
-In order to estimate the effectiveness of the system,
-Precision and Recall are often combined and used in
-evaluation process as F-measure. In general , it’s defined as
-following formula:
+In order to estimate the effectiveness of the system, Precision and Recall are often combined and used in evaluation process as F-measure. 
+In general, it’s defined as following formula:
 %%%
-In Where P and R denote Precision and Recall
-respectively. By assigning 1 to β, F1-measure is produced,
-which is a harmonic mean of precision (P) and recall (R).
-
+In Where P and R denote Precision and Recall respectively. 
+By assigning 1 to β, F1-measure is produced, which is a harmonic mean of precision (P) and recall (R).
 
 \section{Experiments and Results}\label{sectionExperiments}
-Subset of thirty categories from Reuters-21578 corpus is
-randomly chosen as the dataset for the experiment. Number of
-documents in various categories is different, both in train set
-and test set. The documents are of different lengths from
-minimum one to maximum 30 sentences, considering sentence
-as a unit of measure for documents. So dataset includes both
-short and long documents.
-Applying the graph-based single summarization on the
-documents of each category, the feature set for each one is
-obtained. The number of features (words) in each feature set
-was reduced significantly, in comparison with number of
-features in original documents. Figure.1 indicates the
-reduction of dimensionality curse. Since all the categories
-cannot be shown, the diagram includes some random
-categories.
-For comparative evaluation, the classification was
-performed and measured; for both the original full-length
-documents and the summarized documents. The maximum
-and minimum number of documents for the train set was 388
-and 7 respectively. As it is shown in figure 2 \& 3, the
-precision and recall for different categories have improved
-noticeably using the graph-summarized approach. The
-classification performance accuracy determined by F1-
-measure shown in figure 4 indicates the great impact of the
-summarization; the F1-mesure has increased significantly for
-the summarized documents in comparison with the full length
-documents.
-The length of documents and the number of documents in
-the train set significantly influence the results. When one of
-these factors increases ( or both of them ) , the feature set will
-also increase. In case of this, the possibility of occurrence of
-common words between categories increases and finally leads
-to the reduction of Precision as a result. A relatively large
-feature set may increase the Recall positively, but it affects the
-Precision negatively.
-
+Subset of thirty categories from Reuters-21578 corpus is randomly chosen as the dataset for the experiment. 
+Number of documents in various categories is different, both in train set and test set. The documents are of different lengths from minimum one to maximum 30 sentences, considering sentence as a unit of measure for documents. So dataset includes both short and long documents.
+Applying the graph-based single summarization on the documents of each category, the feature set for each one is obtained. 
+The number of features (words) in each feature set was reduced significantly, in comparison with number of features in original documents. 
+Figure.1 indicates the reduction of dimensionality curse. 
+Since all the categories cannot be shown, the diagram includes some random categories.
+For comparative evaluation, the classification was performed and measured; 
+for both the original full-length documents and the summarized documents. 
+The maximum and minimum number of documents for the train set was 388 and 7 respectively. As it is shown in figure 2 \& 3, the precision and recall for different categories have improved noticeably using the graph-summarized approach. 
+The classification performance accuracy determined by F1-measure shown in figure 4 indicates the great impact of the summarization; 
+the F1-mesure has increased significantly for the summarized documents in comparison with the full length documents.
+The length of documents and the number of documents in the train set significantly influence the results. 
+When one of these factors increases (or both of them), the feature set will also increase. 
+In case of this, the possibility of occurrence of common words between categories increases and finally leads to the reduction of Precision as a result. 
+A relatively large feature set may increase the Recall positively, but it affects the Precision negatively.
 
 \section{Conclusion}\label{sectionConclusion}
 The proposed DC system utilizes the advantages of using
-In this paper, we investigated the applying of a graph-based
-summarization approach to the document classification. The
-evaluation was performed for the original and summarized
-documents. First, we used the extractive summarization
-algorithm to reduce the number of features and solved the
-curse of dimension. Second, we showed how the extractive
-summarization could be effectively and usefully applied in
-KNN-classification for documents and improved the acquired
-results.
+In this paper, we investigated the applying of a graph-based summarization approach to the document classification. 
+The evaluation was performed for the original and summarized documents. 
+First, we used the extractive summarization algorithm to reduce the number of features and solved the curse of dimension. 
+Second, we showed how the extractive summarization could be effectively and usefully applied in KNN-classification for documents and improved the acquired results.
 
 
 % Balancing columns in a ref list is a bit of a pain because you
