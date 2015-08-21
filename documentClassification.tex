@@ -165,16 +165,75 @@ In Section~\ref{sectionRelatedWork}, related work is reviewed.
 Section~\ref{sectionMethodology} presents our approach.
 Section~\ref{sectionExperiments} details our results and section~\ref{sectionConclusion} concludes the discussion.
 
-
 \section{Related Work}\label{sectionRelatedWork}
-ADD APP RECOMMENDATION SYSTEMS
+Application recommenders have started to become increasingly commonplace, with several academic~\cite{Yan-mobisys-2011,Shi-sigkdd-2012} and commercial systems~\footnote{The Aptoide meta-store: \url{http://m.aptoide.com/}} %% I did not find any. Do we have examples for these?
+emerging in recent years. 
+Some of these operate as separate applications that are installed on the device, such as Aptoide and Cydia, but some, like Aptoide, can also be reached through a web browser on another device.
+%TODO: Actually, I think this is illegal. There's a store in China that swipes apps from Google Play. with the marketplace itself~\cite{?}. %%Here again: Could not find an app to search apps. 
+At the same time, recommendations have started to emerge on the marketplaces themselves, e.g. Google Play supports both personalized recommendations and country-specific "featured" and most popular application listings.
 
-On each page your material should fit within a rectangle of 7 $\times$
-9.15 inches (18 $\times$ 23.2 cm), centered on a US Letter page (8.5
-$\times$ 11 inches), beginning 0.85 inches (1.9 cm) from the top of
-the page, with a 0.3 inches (0.85 cm) space between two 3.35 inches
-(8.4 cm) columns. Right margins should be justified, not
-ragged. Please be sure your document and PDF are US letter and not A4.
+First works on mobile app recommendations were focused on adopting standard content-based and collaborative filtering techniques for generating recommendations. 
+Most of these works operated directly on the marketplace and relied on application popularity, such as installation counts and click stream data, or ratings to generate recommendations~\cite{Bostrom:2008:CIU:1409240.1409280}. 
+However, as shown by Falaki et al.~\cite{Falaki-mobisys-2010}, installation counts are a poor indicator of user interest as users tend to try out applications without necessarily ever using them again.
+Moreover, some users may not bother uninstalling apps but rather keep apps that have been tried only once. %%TODO: do we have any figures or reference for this?
+These apps will then receive the same weight as those that are used regularly. 
+The same holds for ratings which do not necessarily reflect true user interest. 
+For example, many users give a one star rating for apps that do not function properly on their device~\cite{Yan-mobisys-2011}. 
+At the same time, usage patterns have been shown to be highly contextualized, with many applications only being used in specific contexts~\cite{Bohmer-mobilechi-2011}.
+
+Motivated by the findings of the application usage studies, most recent works on app recommendation rely on usage information gathered directly from the device. 
+For example, AppJoy~\cite{Yan-mobisys-2011} considers a weighted model where recency, frequency, and duration of interactions are taken into consideration, whereas GetJar~\cite{Shi-sigkdd-2012} and the Djinn system of Karatzoglou et al.~\cite{Karatzoglou-cikm-2012} consider information derived from binary usage patterns. AppJoy relies on a constantly running background process that monitors app use, while both GetJar and our technique can be used with crowdsourced,
+infrequently sampled data.
+Both AppJoy and GetJar are based on standard recommender system techniques, whereas Djinn is based on tensor-factorization model that additionally considers also the usage context of applications. 
+Also other works on integrating context information as part of app recommendations have been proposed~\cite{Mizzaro-carr-2014, Davidsson-carr-2011, woerndl-2007}. 
+Finally, the AppAware system of Girardello and Michahelles~\cite{Girardello-mobilechi-2010} provides a Twitter-style social media based systems where users can receive app recommendations from friends and collectively nearby users. 
+
+%Another issue with these works is that some applications are only used in specific contexts~\cite{}. 
+
+%Application marketplaces, including Google Play, can offer personalized recommendations based on the download of the user and the ratings of the applications. In any case, they do not have information from the real usage of the application: whether the app have been used later than just couple of days after installation, or months later than the positive rating have been given. The users may not actually interact equally with all the applications they have installed~\cite{Falaki-mobisys-2010}.
+
+% Previous extended recommendation systems for mobile applications have based on, for example, ratings or installations~\cite{Shi-sigkdd-2012, Girardello-mobilechi-2010} or user's context information.
+
+% AppJoy~\cite{Yan-mobisys-2011} is an application to monitor actual usage patterns of mobile applications, but it does not perform a long-term analysis of usage patterns between different device models and users. AppJoy had 4600 devices, recommended apps based on frequency of use with decay over time, observed that recommended apps were used longer than spontaneously discovered apps.
+
+Usage trends of mobile applications have been monitored by using download counts~\cite{Petsas-imc-2013} or in case of usage, only focusing on short period of time~\cite{Bohmer-mobilechi-2011}.
+Recently, the AppTrends approach proposed to consider actual usage data and to base the recommendation on frequency of co-usage of apps~\cite{7072833}.
+The show that recommendations should consider co-usage of apps as particular use cases on mobile devices involve a common set of apps rather than individual apps only. 
+
+
+As it is mentioned before, feature selection as a fundamental task plays an important role in the overall performance of automatic DC. 
+Many techniques and approaches has been studied and deployed in feature selection, which all focus on aggressive dimensionality reduction. 
+Apart from common feature selection methods such as Document Frequency (DF), Information Gain (IG), Statistic (CHI) and Mutual Information (MI), in several researches text summarization was applied as feature selection and it was found useful and beneficial in automatic DC.
+Ker and Chen~\cite{Ker:2000:TCB:1117755.1117766} proposed a summarization-based document classification system. 
+Among Several techniques for text summarization (which includes methods based on position, cue phrase, word frequency and discourse segmentation) word-based frequency and position methods were considered and then combined to extract features. 
+From position point of view, title of the document was only used with the assumption that existing words in the title probably describes the context relatively well.
+After weighting the selected features, DC process was performed by a probabilistic classifier runs on TF-IDF (Term frequency–Inverse Document Frequency). 
+The experiment showed that using title as a summarization technique would result in acceptable performance, meanwhile decline the execution time.
+
+The work by Kolcz et al.~\cite{Kolcz:2001:SFS:502585.502647} tried to prove the efficiency of their proposed summarization technique by using it as a feature selection method in DC. 
+Different summarization methods based on the title of the story, paragraphs and best sentence were considered in the approach in order to reduce the feature set to a manageable size. Paragraphs' position, keywords and title words were taken into account in summary generation, which included first paragraph, first two paragraph, first last paragraph, paragraph with most keywords, paragraph with most title words. In addition, another summary was also constructed by choosing the sentences with at least 3 title words and at least 4 keywords. The applied classifier was
+Support Vector Machine (SVM). The applied summarization methods were as effective as state-of-art statistical feature selection methods in DC, specially the best sentence-based summary.
+In another text summarization method, Ko et al.~\cite{Ko:2004:ITC:975966.975971} determined the importance of sentences in a document by combining two methods. First, instead of directly using terms of the title, the most similar sentences with the title were selected, and then in the second method the sentence with the highest sum of weighted terms (based on TF, IDF, and X2 statistics values). Then, the chosen sentences were scored by a modified weighting technique, to retrieve the most informative sentence. 
+The suggested system enhanced the performance of document classification in four applied classifiers: Naive Bayes, Rocchio, k-NN, and SVM classifier, regardless of specific language.
+Mihalcea and Hassan~\cite{mihalcea2005using} presented a new approach by summarizing the documents in order to improve and enhance the classifier which results in efficient execution of a DC task.
+The extraction of sentences was performed with the aid of graph-based algorithms which ranked them according to the number of links. 
+Two popular ranking algorithms: PageRank~cite{Brin20123825} and HITS (Hyperlinked Induced Topic Search)~\cite{Kleinberg:1999:ASH:324133.324140} were deployed in order to decide on the importance of sentences which finally construct the summarization. 
+Mapping these algorithms to the document, each sentence is considered as a vertice, and if each pair of sentences have some informative terms in common, then there will be an edge between them. 
+Naive Bayes, Rocchio were applied as main classifiers. 
+The results revealed that the proposed system improved the classification efficiency, disconsidering the length of the original document. 
+The technique was also recommended as a measurement for different summarization tool evaluation.
+Jiang et al.~\cite{4797414} examined the impact of summarzation on document classification, by considering two different applications of summary in order to obtain the feature set: considering the summary itself as the feature set and applying classical feature selection method (MI, IG and DF) on summary. To construct the summary, only nouns and verbs were weighted, with regards to semantic-based distance value and connective strength value. 
+The calculated weights then were used in determining the constituent sentences of the final summarization. 
+The outcome indicated that the approach decreased the classification computations and provided a high speed system with acceptable performance.
+
+The reviewed approaches and methods in this section present different methods of summarization. 
+Initial works considered the summary as a part or fraction of the document (title, paragraph, etc.). 
+Later works try to generate more precise summaries, using many complicated term-based and sentence-based weighting techniques. 
+Graph-based algorithms were also quite successful in creating valuable summaries. 
+Many informative features were missing in the simple extraction techniques, for instance title itself cannot be a good candidate for a summary, since there is at least one sentence in a document which is more descriptive. 
+On the contrary, complex summarization methods lead in more reliable summaries, since many aspects are taken into account in their process.
+However, summarization as a feature selection method is a promising technique to effectively improve the performance of document classification systems.
+
 
 \section{Methodology}\label{sectionMethodology}
 The styles contained in this document have been modified from the
