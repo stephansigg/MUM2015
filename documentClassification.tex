@@ -317,24 +317,67 @@ In this equation, $x$ is the document to be classified, $f_i$ is the $i$-th feat
 For evaluation, we exploit Precision, Recall, and F-measure which are widely used among the various methods to determine the effectiveness of automatic text classification~\cite{ikonomakis2005text, 5950}.
 
 \section{Experiments and Results}\label{sectionExperiments}
-Subset of thirty categories from Reuters-21578 corpus is randomly chosen as the dataset for the experiment. 
-Number of documents in various categories is different, both in train set and test set. The documents are of different lengths from minimum one to maximum 30 sentences, considering sentence as a unit of measure for documents. So dataset includes both short and long documents.
-Applying the graph-based single summarization on the documents of each category, the feature set for each one is obtained. 
-The number of features (words) in each feature set was reduced significantly, in comparison with number of features in original documents. 
-Figure.1 indicates the reduction of dimensionality curse. 
-Since all the categories cannot be shown, the diagram includes some random categories.
-For comparative evaluation, the classification was performed and measured; 
-for both the original full-length documents and the summarized documents. 
-The maximum and minimum number of documents for the train set was 388 and 7 respectively. As it is shown in figure 2 \& 3, the precision and recall for different categories have improved noticeably using the graph-summarized approach. 
-The classification performance accuracy determined by F1-measure shown in figure 4 indicates the great impact of the summarization; 
-the F1-mesure has increased significantly for the summarized documents in comparison with the full length documents.
-The length of documents and the number of documents in the train set significantly influence the results. 
-When one of these factors increases (or both of them), the feature set will also increase. 
-In case of this, the possibility of occurrence of common words between categories increases and finally leads to the reduction of Precision as a result. 
-A relatively large feature set may increase the Recall positively, but it affects the Precision negatively.
+A subset of thirty categories from Reuters-21578 corpus is randomly chosen as the dataset for our experiment. 
+The number of documents in various categories is different, both in the training set and in the testing set. 
+The documents are of different length~1 to~30 sentences.
+
+Applying the graph-based single summarization on the documents of each category, the feature set is obtained for each. 
+The number of features (words) in each feature set was reduced significantly, in comparison to the number of features in original documents as detailed in table~\ref{tableFeatureSetDimensionality}.
+\begin{table}
+  \centering
+  \begin{tabular}{lcc}
+    \toprule
+    & Original & Summarized \\
+    \midrule
+    Number of features & 106,016 & 36,746 \\
+    \bottomrule
+  \end{tabular}
+  \caption{Feature set Dimensionality.}~\label{tableFeatureSetDimensionality}
+\end{table}
+
+Figure~\ref{figureDimensionalityReduction} indicates the reduction in dimensionality for a subset of 15 of the total \textbf{???} categories. \textbf{Can we write sth. like that the results were similar for the other categories not depicted in the figure?}
+\begin{figure}
+\centering
+  \includegraphics[width=0.9\columnwidth]{figures/DocumentClassificationAzadehDorna-000}
+  \caption{Feature dimensionality reduction. }~\label{figureDimensionalityReduction}
+\end{figure}
+
+For comparative evaluation, the classification was performed and measured for both the original full-length documents and the summarized documents. 
+The maximum and minimum number of documents for the training set was 388 and 7 respectively. 
+As it is shown in figures~\ref{figurePrecision} and~\ref{figureRecall}, the precision and recall for different categories have improved noticeably using our approach. 
+\begin{figure}
+\centering
+  \includegraphics[width=0.9\columnwidth]{figures/DocumentClassificationAzadehDorna-002}
+  \caption{Precision achieved for the original and the summarized feature set. }~\label{figurePrecision}
+\end{figure}
+\begin{figure}
+\centering
+  \includegraphics[width=0.9\columnwidth]{figures/DocumentClassificationAzadehDorna-004}
+  \caption{Recall achieved for the original and the summarized feature set.}~\label{figureRecall}
+\end{figure}
+The classification performance determined by the F1-measure shown in figure~\ref{figureF1} indicates the positive impact of the summarization.
+\begin{figure}
+\centering
+  \includegraphics[width=0.9\columnwidth]{figures/DocumentClassificationAzadehDorna-006}
+  \caption{F1-measure achieved for the original and the summarized feature set.}~\label{figureF1}
+\end{figure}
+The F1-mesure has increased significantly for the summarized documents in comparison with the full length documents.
+
+The length of documents and the number of documents in the training set significantly influences the results. 
+When at least one of these increases, the feature set will also increase in size. 
+As a result of this, the possibility of co-occurrence of common words between categories increases and finally leads to the reduced Precision. 
+A relatively large feature set may impact the Recall positively, but it affects the Precision negatively.
+\textbf{No link and explanation for figure~\ref{figureSummary}}
+\begin{figure}
+\centering
+  \includegraphics[width=0.9\columnwidth]{figures/DocumentClassificationAzadehDorna-008}
+  \caption{F1-measure achieved for the original and the summarized feature set.}~\label{figureSummary}
+\end{figure}
 
 \section{Conclusion}\label{sectionConclusion}
-The proposed DC system utilizes the advantages of using
+\textbf{TODO: add link ot app recommendation}
+The proposed document classification system utilizes the advantages of using
+\textbf{...What? Sth is missing}
 In this paper, we investigated the applying of a graph-based summarization approach to the document classification. 
 The evaluation was performed for the original and summarized documents. 
 First, we used the extractive summarization algorithm to reduce the number of features and solved the curse of dimension. 
