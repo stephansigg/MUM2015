@@ -229,39 +229,38 @@ Summarization as a feature selection method is a promising technique to effectiv
 \textbf{Probably add: How does the own contribution differ from the related work}
 
 \section{Methodology}\label{sectionMethodology}
-The proposed DC system utilizes the advantages of using summary instead of the complete document, since it includes the standpoints and main information in a shorter format.
-The training phase starts with text preprocessing which involves tokenization, stopword removal and stemming. 
+The proposed document classification system utilizes summaries instead of complete documents, thereby representing the main information in a shorter format.
+The training phase starts with text pre-processing which involves tokenization, stopword removal and stemming. 
 To improve the quality of features, WordNet and porter stemmer are applied in this step. 
-The documents will be then summarized by a graph-based text summarization approach proposed by~\cite{sjobergh2006extraction}, in which sentences constructed the summary are chosen by shortest path algorithms. 
+The documents are then summarized by a graph-based text summarization approach proposed in~\cite{sjobergh2006extraction}, in which sentences to compose the summary are chosen by shortest path algorithms. 
 After replacing the documents with their related summaries, a specific feature set for each category will be determined by considering the words
 of summarized documents as the final feature set. 
-K-Nearest Neighbor (KNN) algorithm is used in the test phase to classify unlabeled documents in the test set and assign each to its relevant category.
+A k-Nearest Neighbor algorithm is used in the test phase to classify unlabeled documents in the test set and assign each to its relevant category.
 
-\subsection{Preprocessing}\label{sectionPreprocessing}
-The performance of Machine Learning is highly influenced by data preprocessing, and the quality of the input data determines the quality of output data. 
-Mapping this fact to document classification, an efficient preprocessing technique should be employed to evaluate the words (features) and choose the dominant ones to be used later in classifier training phase. 
-Irrelevant and redundant words make it difficult for the classifier to decide.
-Morphological analysis is a productive step in the quality improvement of input textual data, which is divided into tokenization, stemming and recognition of ending of records [THIS IS NO REFERENCE !!!]. 
+\subsection{Pre-processing}\label{sectionPreprocessing}
+The performance of Machine Learning is highly influenced by data pre-processing, and the quality of the input determines the quality of output. 
+In document classification, an efficient pre-processing technique should be employed to evaluate the words (features) and choose the dominant ones to be used later in classifier training, since irrelevant and redundant words make it difficult for the classifier to decide.
+Morphological analysis is a productive step in the quality improvement of textual input, which is divided into tokenization, stemming and recognition of ending of records. 
 During the tokenization, a dataset of meaningful words (tokens) - separated by a special ‘space’ character - will be produced and other tokens such as punctuation, numbers etc. will be eliminated. 
 Stemming is the process of transforming the inflections of words into their related stem (root)\cite{Allan:2003:SLM:860435.860548}.
 Many automatic stemming approaches have been proposed like successor variety stemmer, n-gram method and affix removal stemmer. 
-The most widely used of all the stemmers is the porter stemmer, which was first presented in 1980. 
 The stemmer is a context sensitive suffix removal algorithm and is available in many languages. 
-It utilizes several sequential steps - five or six- to find the stem. 
-The improvement of performance is expected with regards to the fact that stemming boosts the precision and recall in IR systems.
+It utilizes several sequential steps to find the stem. 
+The improvement of performance is expected with regard to the fact that stemming boosts the precision and recall in IR systems.
 Finally, documents' segments (e.g. sentence, paragraph) are also be recognized by searching end of records like '.','!'.
-Detected segments later will be used as desired units [THIS IS NO REFERENCE !!!].
 
 WordNet~\cite{miller1990introduction} is a useful tool for computational linguistics and natural language processing (NLP), because of its well-
 designed structure. 
-The synonymy in WordNet is an important semantic relation between words, for example shut and close or car and automobile. 
+The synonymy in WordNet is an important semantic relation between words, such as shut and close or car and automobile. 
 This english-based lexical database, uses the concept of synset which is a group of nouns, verbs, adjectives and adverbs cognitively synonyms.
-Synsets share the same concept in many contexts, are grouped in WordNet.
-In addition, each pair of grouped synsets are linked by using conceptual relations~\cite{1410799}. 
+Synsets share the same concept in many contexts and are grouped in WordNet.
+In addition, each pair of grouped synsets is linked by using conceptual relations~\cite{1410799}. 
 The selection of words from the synonyms’ perspective, is performed with regard to the co-occurrence of terms in a category which belongs to the same synset signature. 
 The synset signature cross-referencing has the main role in selecting the correct sense for the terms co-occurrence in a category. The process is performed by examining the list of noun synsets for all senses in order to acquire the similarity in the signatures. 
 The semantic context of a category would be formed by the senses of different words which their synsets overlap.
-The equal synsets with the same signatures would be added to the feature lists of the category in order to select the original terms.
+Equal synsets with identical signature are added to the feature lists of the category in order to select the original terms.
+
+\textbf{This subsection needs revision: It is merely a summary of Word net and Stemming. But what is actually done in your approach? To be added here.}
 
 \subsection{Document Summarization}\label{sectionSummarization}
 To reduce the high dimensionality of feature space, the documents are required to be shortened while preserving the key points. 
