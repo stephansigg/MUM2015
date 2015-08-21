@@ -189,91 +189,261 @@ They show that recommendations should consider co-usage of apps as particular us
 While these systems can provide better and more personalised recommendation results than the basic approaches provided via app stores, the high resource demands of the mobile-based solutions render practical use impossible.
 We therefore investigate lightweight document classification to mitigate this problem.
 
-
-As it is mentioned before, feature selection as a fundamental task plays an important role in the overall performance of automatic DC. 
+Feature selection as a fundamental task plays an important role in the overall performance of automatic document classification. 
 Many techniques and approaches has been studied and deployed in feature selection, which all focus on aggressive dimensionality reduction. 
-Apart from common feature selection methods such as Document Frequency (DF), Information Gain (IG), Statistic (CHI) and Mutual Information (MI), in several researches text summarization was applied as feature selection and it was found useful and beneficial in automatic DC.
+Apart from common feature selection methods such as Document Frequency (DF), Information Gain (IG), Statistic and Mutual Information (MI), in several researches text summarization was applied as feature selection and it was found useful and beneficial in automatic document classification.
+
 Ker and Chen~\cite{Ker:2000:TCB:1117755.1117766} proposed a summarization-based document classification system. 
 Among Several techniques for text summarization (which includes methods based on position, cue phrase, word frequency and discourse segmentation) word-based frequency and position methods were considered and then combined to extract features. 
-From position point of view, title of the document was only used with the assumption that existing words in the title probably describes the context relatively well.
-After weighting the selected features, DC process was performed by a probabilistic classifier runs on TF-IDF (Term frequency–Inverse Document Frequency). 
+From position point of view, title of the document was only used with the assumption that existing words in the title likely describe the context relatively well.
+After weighting the selected features, document classification was performed by a probabilistic classifier exploring TF-IDF (Term frequency–Inverse Document Frequency). 
 The experiment showed that using title as a summarization technique would result in acceptable performance, meanwhile decline the execution time.
 
-The work by Kolcz et al.~\cite{Kolcz:2001:SFS:502585.502647} tried to prove the efficiency of their proposed summarization technique by using it as a feature selection method in DC. 
-Different summarization methods based on the title of the story, paragraphs and best sentence were considered in the approach in order to reduce the feature set to a manageable size. Paragraphs' position, keywords and title words were taken into account in summary generation, which included first paragraph, first two paragraph, first last paragraph, paragraph with most keywords, paragraph with most title words. In addition, another summary was also constructed by choosing the sentences with at least 3 title words and at least 4 keywords. The applied classifier was
-Support Vector Machine (SVM). The applied summarization methods were as effective as state-of-art statistical feature selection methods in DC, specially the best sentence-based summary.
-In another text summarization method, Ko et al.~\cite{Ko:2004:ITC:975966.975971} determined the importance of sentences in a document by combining two methods. First, instead of directly using terms of the title, the most similar sentences with the title were selected, and then in the second method the sentence with the highest sum of weighted terms (based on TF, IDF, and X2 statistics values). Then, the chosen sentences were scored by a modified weighting technique, to retrieve the most informative sentence. 
+The work by Kolcz et al.~\cite{Kolcz:2001:SFS:502585.502647} tried to prove the efficiency of their proposed summarization technique by using it as a feature selection method in document classification. 
+Different summarization methods based on the title of the story, paragraphs and best sentence were considered in the approach in order to reduce the feature set to a manageable size. Paragraphs' position, keywords and title words were taken into account in summary generation, which included first paragraph, first two paragraph, first last paragraph, paragraph with most keywords and paragraph with most title words. In addition, another summary was also constructed by choosing the sentences with at least 3 title words and at least 4 keywords. 
+The applied classifier was a Support Vector Machine (SVM). 
+The applied summarization methods were as effective as state-of-art statistical feature selection methods in DC, specially the best sentence-based summary.
+In another text summarization method, Ko et al.~\cite{Ko:2004:ITC:975966.975971} determined the importance of sentences in a document by combining two methods. 
+First, instead of directly using terms of the title, the most similar sentences with the title were selected, and then in the second method the sentence with the highest sum of weighted terms (based on TF, IDF, and X2 statistics values). 
+Afterwards, the chosen sentences were scored by a modified weighting technique, to retrieve the most informative sentence. 
 The suggested system enhanced the performance of document classification in four applied classifiers: Naive Bayes, Rocchio, k-NN, and SVM classifier, regardless of specific language.
-Mihalcea and Hassan~\cite{mihalcea2005using} presented a new approach by summarizing the documents in order to improve and enhance the classifier which results in efficient execution of a DC task.
+
+Mihalcea and Hassan~\cite{mihalcea2005using} presented a new approach by summarizing the documents in order to improve and enhance the classifier which results in efficient execution of a document classification.
 The extraction of sentences was performed with the aid of graph-based algorithms which ranked them according to the number of links. 
-Two popular ranking algorithms: PageRank~cite{Brin20123825} and HITS (Hyperlinked Induced Topic Search)~\cite{Kleinberg:1999:ASH:324133.324140} were deployed in order to decide on the importance of sentences which finally construct the summarization. 
+Two popular ranking algorithms, PageRank~\cite{Brin20123825} and HITS (Hyperlinked Induced Topic Search)~\cite{Kleinberg:1999:ASH:324133.324140} were deployed in order to decide on the importance of sentences which finally construct the summarization. 
 Mapping these algorithms to the document, each sentence is considered as a vertice, and if each pair of sentences have some informative terms in common, then there will be an edge between them. 
 Naive Bayes, Rocchio were applied as main classifiers. 
 The results revealed that the proposed system improved the classification efficiency, disconsidering the length of the original document. 
 The technique was also recommended as a measurement for different summarization tool evaluation.
-Jiang et al.~\cite{4797414} examined the impact of summarzation on document classification, by considering two different applications of summary in order to obtain the feature set: considering the summary itself as the feature set and applying classical feature selection method (MI, IG and DF) on summary. To construct the summary, only nouns and verbs were weighted, with regards to semantic-based distance value and connective strength value. 
-The calculated weights then were used in determining the constituent sentences of the final summarization. 
+
+Jiang et al.~\cite{4797414} examined the impact of summarzation on document classification, by considering two different applications of summary in order to obtain the feature set: the summary itself as the feature set and applying classical feature selection methods (MI, IG and DF) on the summary. 
+To construct the summary, only nouns and verbs were weighted, with regard to semantic-based distance value and connective strength value. 
+The calculated weights were then used in determining the constituent sentences of the final summarization. 
 The outcome indicated that the approach decreased the classification computations and provided a high speed system with acceptable performance.
 
-The reviewed approaches and methods in this section present different methods of summarization. 
-Initial works considered the summary as a part or fraction of the document (title, paragraph, etc.). 
-Later works try to generate more precise summaries, using many complicated term-based and sentence-based weighting techniques. 
-Graph-based algorithms were also quite successful in creating valuable summaries. 
-Many informative features were missing in the simple extraction techniques, for instance title itself cannot be a good candidate for a summary, since there is at least one sentence in a document which is more descriptive. 
-On the contrary, complex summarization methods lead in more reliable summaries, since many aspects are taken into account in their process.
-However, summarization as a feature selection method is a promising technique to effectively improve the performance of document classification systems.
-
+Many informative features were missing in the above mentioned simple extraction techniques. 
+For instance, the title itself, especially in app recommendation systems, cannot be a good candidate for a summary. 
+On the contrary, the more advanced summarization methods lead to reliable summaries, since many aspects are taken into account in their process.
+Summarization as a feature selection method is a promising technique to effectively improve the performance of document classification for app recommendation systems.
 
 \section{Methodology}\label{sectionMethodology}
-The styles contained in this document have been modified from the
-default styles to reflect ACM formatting conventions. For example,
-content paragraphs like this one are formatted using the Normal style.
+The proposed DC system utilizes the advantages of using
+summary instead of the complete document, since it includes
+the standpoints and main information in a shorter format.
+The training phase starts with text preprocessing which
+involves tokenization, stopword removal and stemming. To
+improve the quality of features, WordNet and porter stemmer
+are applied in this step. The documents will be then
+summarized by a graph-based text summarization approach
+proposed by [10],in which sentences constructed the summary
+are chosen by shortest path algorithms. After replacing the
+documents with their related summaries, a specific feature set
+for each category will be determined by considering the words
+of summarized documents as the final feature set. K-Nearest
+Neighbor (KNN) algorithm is used in the test phase to classify
+unlabeled documents in the test set and assign each to its
+relevant category.
+
 
 \subsection{Preprocessing}\label{sectionPreprocessing}
-Your paper's title, authors and affiliations should run across the
-full width of the page in a single column 17.8 cm (7 in.) wide.  The
-title should be in Helvetica or Arial 18-point bold.  Authors' names
-should be in Times New Roman or Times Roman 12-point bold, and
-affiliations in 12-point regular.  
+The performance of ML is highly influenced by data
+preprocessing, and the quality of the input data determines the
+quality of output data. Mapping this fact to the DC process, an
+efficient preprocessing technique should be employed to
+evaluate the words (features) and choose the dominant ones to
+be used later in classifier training phase. Irrelevant and
+redundant words make it difficult for the classifier to decide.
+Morphological analysis is a productive step in the quality
+improvement of input textual data, which is divided into
+tokenization, stemming and recognition of ending of records
+[11]. During the tokenization, a dataset of meaningful words
+(tokens) - separated by a special ‘space’ character - will be
+produced and other tokens such as punctuation, numbers etc.
+will be eliminated. Stemming is the process of transforming
+the inflections of words into their related stem (root) [12].
+Many automatic stemming approaches have been proposed
+like successor variety stemmer, n-gram method and affix
+removal stemmer. The most widely used of all the stemmers
+is the porter stemmer, which was first presented in 1980. The
+stemmer is a context sensitive suffix removal algorithm and is
+available in many languages. It utilizes several sequential
+steps - five or six- to find the stem. The improvement of
+performance is expected with regards to the fact that
+stemming boosts the precision and recall in IR systems.
+Finally, documents' segments (e.g. sentence, paragraph) are
+also be recognized by searching end of records like '.','!'.
+Detected segments later will be used as desired units [11].
+WordNet [13] is a useful tool for computational linguistics
+and natural language processing (NLP), because of its well-
+designed structure. The synonymy in WordNet is an important
+semantic relation between words, for example shut and close
+or car and automobile. This english-based lexical database,
+uses the concept of synset which is a group of nouns, verbs,
+adjectives and adverbs cognitively synonyms. Synsets share
+the same concept in many contexts, are grouped in WordNet.
+In addition, each pair of grouped synsets are linked by using
+conceptual relations [14]. The selection of words from the
+synonyms’ perspective, is performed with regard to the co-
+occurrence of terms in a category which belongs to the same
+synset signature. The synset signature cross-referencing has
+the main role in selecting the correct sense for the terms co-
+occurrence in a category. The process is performed by
+examining the list of noun synsets for all senses in order to
+acquire the similarity in the signatures. The semantic context
+of a category would be formed by the senses of different
+words which their synsets overlap. The equal synsets with the
+same signatures would be added to the feature lists of the
+category in order to select the original terms.
 
-See \texttt{{\textbackslash}author} section of this template for
-instructions on how to format the authors. For more than three
-authors, you may have to place some address information in a footnote,
-or in a named section at the end of your paper. Names may optionally
-be placed in a single centered row instead of at the top of each
-column. Leave one 10-point line of white space below the last line of
-affiliations.
 
 \subsection{Document Summarization}\label{sectionSummarization}
+To reduce the high dimensionality of feature space, the
+documents are required to be shortened while preserving the
+key points. Since summary is a short version of a document,
+Summarization as an effective method contributes to the
+objective.
+A set of words, sentences or paragraphs - derived of a text
+document or a collection of documents - is called a summary
+if it points to the same information or concepts as the original
+one(s). Two common methods for generating a summary are
+abstractive summarization and extractive summarization. The
+summary produced by the first method, is mostly semantic-
+based and might not contain exact original words. In contrast,
+extractive methods create the summary made of genuine
+words of the reference document(s). In this work extractive
+summarization is considered which is strongly associated to
+feature selection, due to straight forward generation of a
+summary.
+The adopted graph-based summarization method in this
+work, is suggested by [10]. To represent the original document
+in the graph format, first it is divided into sentences. Each
+sentence is now considered as a vertice, and there will be a
+weighted edge between each pair of sentences, if they share
+one word at least. In addition to the relation edge, each
+sentence is also connected to the following sentence with an
+unweighted edge to facilitate the navigation through the graph.
+The assigned cost to each edge denotes high similarity, in
+case of low cost and vice versa. The cost of edge from
+sentence i (Si) to the sentence j (Sj) is calculated as:
+%%%%%%%%%%%%%%%%%%
 
-Every submission should begin with an abstract of about 150 words,
-followed by a set of Author Keywords and ACM Classification
-Keywords. The abstract and keywords should be placed in the left
-column of the first page under the left half of the title. The
-abstract should be a concise statement of the problem, approach, and
-conclusions of the work described. It should clearly state the paper's
-contribution to the field of HCI\@.
+Overlapi,j returns the number of words shared between
+sentence i and j. In the proposed summarization only words of
+four characters or more are considered, but in our approach
+this condition is discarded. The reason is that stemming
+reduces the words into their roots, so the number of characters
+within a word will also be reduced, and this may cause
+inaccuracy.
+When the graph is built, the next step would be to generate
+the summary with the shortest path approach deployment, in
+which the target node corresponds to the last sentence in the
+main document and the source node is the first sentence. The
+traverse starts at the source node, and then all the cost values
+of the out coming edges are added to a priority queue. The
+path with the minimum cost will be discovered , as soon as it
+ends with the target node. The summary then will be created
+by existing sentences in this path. All the summarized
+documents of each category, then make a feature set in the
+bag-of-words format.
+
 
 \subsection{Classification}\label{sectionClassification}
+C. Classification
+KNN [15] is a classical statistical pattern recognition
+algorithm. Its idea is very simple: Similarity between a text
+document to be classified and all train samples in each
+category will be calculated according to a similarity
+computing strategy. Finally it will be assigned to the category
+with the maximum sum of similarities.
+After feature selection phase, there is only one document
+in each train set category which is actually our feature set. In
+fact, the similarity has to be computed only between the test
+document and just one train sample.
+%%%%%%%%%%%%%%%%%%%%%%%%
 
-Please use a 10-point Times New Roman or Times Roman font or, if this
-is unavailable, another proportional font with serifs, as close as
-possible in appearance to Times Roman 10-point. Other than Helvetica
-or Arial headings, please use sans-serif or non-proportional fonts
-only for special purposes, such as source code text.
+Where x is the document to be classified, fi is the ith
+feature set, ci is the ith category, and y(fi,ci) {0,1} denotes
+whether feature set belongs to category c i ( if belongs to ci
+then y(fi,ci) 1, otherwise y(fi,ci ) 0).
+
+\subsection{Evaluation}
+Precision, Recall, and F-measure are widely used among
+the various methods to determine the effectiveness of
+automatic TC. These measures are computed with regards to
+classification of a text. A document can be classified [16] as
+True Positive(TP): a document being classified correctly as
+relating to a category , False Positive(FP): a document that is
+said to be related to the category incorrectly, False
+Negative(FN): a document that is not marked as related to a
+category but should be, and True Negative(TN): a document
+that should not be marked as being in a particular category and
+is not.
+Both precision and recall are therefore based on an
+understanding and measure of relevance. Recall is the
+proportion of relevant material actually retrieved, and
+Precision is the proportion of retrieved material actually
+relevant. Precision and Recall are defined as follow:
+%%%
+In order to estimate the effectiveness of the system,
+Precision and Recall are often combined and used in
+evaluation process as F-measure. In general , it’s defined as
+following formula:
+%%%
+In Where P and R denote Precision and Recall
+respectively. By assigning 1 to β, F1-measure is produced,
+which is a harmonic mean of precision (P) and recall (R).
+
 
 \section{Experiments and Results}\label{sectionExperiments}
-
-The heading of a section should be in Helvetica or Arial 9-point bold,
-all in capitals. Sections should \textit{not} be numbered.
+Subset of thirty categories from Reuters-21578 corpus is
+randomly chosen as the dataset for the experiment. Number of
+documents in various categories is different, both in train set
+and test set. The documents are of different lengths from
+minimum one to maximum 30 sentences, considering sentence
+as a unit of measure for documents. So dataset includes both
+short and long documents.
+Applying the graph-based single summarization on the
+documents of each category, the feature set for each one is
+obtained. The number of features (words) in each feature set
+was reduced significantly, in comparison with number of
+features in original documents. Figure.1 indicates the
+reduction of dimensionality curse. Since all the categories
+cannot be shown, the diagram includes some random
+categories.
+For comparative evaluation, the classification was
+performed and measured; for both the original full-length
+documents and the summarized documents. The maximum
+and minimum number of documents for the train set was 388
+and 7 respectively. As it is shown in figure 2 \& 3, the
+precision and recall for different categories have improved
+noticeably using the graph-summarized approach. The
+classification performance accuracy determined by F1-
+measure shown in figure 4 indicates the great impact of the
+summarization; the F1-mesure has increased significantly for
+the summarized documents in comparison with the full length
+documents.
+The length of documents and the number of documents in
+the train set significantly influence the results. When one of
+these factors increases ( or both of them ) , the feature set will
+also increase. In case of this, the possibility of occurrence of
+common words between categories increases and finally leads
+to the reduction of Precision as a result. A relatively large
+feature set may increase the Recall positively, but it affects the
+Precision negatively.
 
 
 \section{Conclusion}\label{sectionConclusion}
+The proposed DC system utilizes the advantages of using
+In this paper, we investigated the applying of a graph-based
+summarization approach to the document classification. The
+evaluation was performed for the original and summarized
+documents. First, we used the extractive summarization
+algorithm to reduce the number of features and solved the
+curse of dimension. Second, we showed how the extractive
+summarization could be effectively and usefully applied in
+KNN-classification for documents and improved the acquired
+results.
 
-Place figures and tables at the top or bottom of the appropriate
-column or columns, on the same page as the relevant text (see
-Figure~\ref{fig:figure1}). A figure or table may extend across both
-columns to a maximum width of 17.78 cm (7 in.).
 
 % Balancing columns in a ref list is a bit of a pain because you
 % either use a hack like flushend or balance, or manually insert
