@@ -263,30 +263,44 @@ Equal synsets with identical signature are added to the feature lists of the cat
 \textbf{This subsection needs revision: It is merely a summary of Word net and Stemming. But what is actually done in your approach? To be added here.}
 
 \subsection{Document Summarization}\label{sectionSummarization}
-To reduce the high dimensionality of feature space, the documents are required to be shortened while preserving the key points. 
-Since summary is a short version of a document, summarization as an effective method contributes to the objective.
-A set of words, sentences or paragraphs - derived of a text document or a collection of documents - is called a summary if it points to the same information or concepts as the original one(s). 
-Two common methods for generating a summary are abstractive summarization and extractive summarization. 
-The summary produced by the first method, is mostly semantic-based and might not contain exact original words. 
-In contrast, extractive methods create the summary made of genuine words of the reference document(s). 
-In this work extractive summarization is considered which is strongly associated to feature selection, due to straight forward generation of a
-summary.
-The adopted graph-based summarization method in this work, is suggested by~\cite{sjobergh2006extraction}. 
-To represent the original document in the graph format, first it is divided into sentences. 
-Each sentence is now considered as a vertice, and there will be a weighted edge between each pair of sentences, if they share one word at least.
-In addition to the relation edge, each sentence is also connected to the following sentence with an unweighted edge to facilitate the navigation through the graph.
-The assigned cost to each edge denotes high similarity, in case of low cost and vice versa. 
-The cost of edge from sentence i (Si) to the sentence j (Sj) is calculated as:
-%%%%%%%%%%%%%%%%%%
+\textbf{Insert one sentence that briefly describes what the feature space typically looks like so that the reader understands why dimension is so high}
 
-Overlapi,j returns the number of words shared between sentence i and j. 
-In the proposed summarization only words of four characters or more are considered, but in our approach this condition is discarded. 
-The reason is that stemming reduces the words into their roots, so the number of characters within a word will also be reduced, and this may cause inaccuracy.
-When the graph is built, the next step would be to generate the summary with the shortest path approach deployment, in which the target node corresponds to the last sentence in the main document and the source node is the first sentence. 
-The traverse starts at the source node, and then all the cost values of the out coming edges are added to a priority queue.
-The path with the minimum cost will be discovered, as soon as it ends with the target node. 
-The summary then will be created by existing sentences in this path. 
-All the summarized documents of each category, then make a feature set in the bag-of-words format.
+To reduce the high dimensionality of the feature space, the documents are required to be shortened while preserving the key information. 
+Since a summary is a short version of a document, summarization as an effective method contributes to this objective.
+
+A set of words, sentences or paragraphs - derived of a text document or a collection of documents - is called a summary if it points to the same information or concepts as the original ones. 
+Two common methods for generating a summary are abstractive summarization and extractive summarization. 
+The summary produced by the former method, is mostly semantic-based and might not contain exact original words. 
+In contrast, extractive methods create the summary made of genuine words of the reference documents. 
+In this work extractive summarization is considered.
+
+We adopt the graph-based summarization method suggested by~\cite{sjobergh2006extraction}. 
+To represent the original document in graph format, first it is divided into sentences. 
+Each sentence is now considered as a vertice, and there will be a weighted edge between each pair of sentences, if they share one word at least.
+In addition, each sentence is also connected to the following sentence with an unweighted edge to facilitate the navigation through the graph.
+\textbf{would be nice to add a figure here which exemplarily shows such graph}
+
+The assigned cost to each edge denotes high similarity, in case of low cost and vice versa. 
+The cost of edge from sentence $i$ ($S_i$) to the sentence $j$ ($S_j$) is calculated as:
+\begin{equation}
+ \mbox{cost}_{i,j}=\frac{(i-j)^2}{\mbox{overlap}_{i,j}\cdot\mbox{weight}_j}
+\end{equation}
+with the weight of each sentence as 
+\begin{eqnarray}
+ \mbox{weight}_j&=&(1+\mbox{overlap}_{\mbox{\tiny title},j})\cdot\left(\frac{1+\sum_{w\in S_j}tf(w)}{\sum_{w\in\mbox{\tiny text}tf(w)}}\right)\nonumber\\
+ &&\cdot\mbox{early}(j)\cdot\sqrt{1+|\mbox{edges}_j|}\\
+ \mbox{early}(j)&=&\left\{\begin{array}{ll}
+                         2 & \mbox{if }j<10\\
+                         1 & \mbox{otherwise.}
+                        \end{array}
+\right.
+\end{eqnarray}
+Overlap$_{i,j}$ returns the number of words shared between sentence $i$ and $j$. 
+In contrast to~\cite{sjobergh2006extraction}, we also consider workds of $\leq3$ characters since stemming reduces the words into their roots, so the number of characters within a word is reduced.
+
+When the graph is built, the next step is the generation of the summary with the shortest path approach, in which the target node corresponds to the last sentence in the main document and the source node is the first sentence. 
+The summary is then composed from sentences in this path. 
+All the summarized documents of each category then make a feature set following the bag-of-words assumption.
 
 \subsection{Classification}\label{sectionClassification}
 KNN~\cite{5190062} is a classical statistical pattern recognition algorithm. 
