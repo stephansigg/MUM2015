@@ -1,0 +1,78 @@
+%%% -*-BibTeX-*-
+%%% Do NOT edit. File created by BibTeX with style
+%%% ACM-Reference-Format-Journals [18-Jan-2012].
+
+\begin{thebibliography}{00}
+
+%%% ====================================================================
+%%% NOTE TO THE USER: you can override these defaults by providing
+%%% customized versions of any of these macros before the \bibliography
+%%% command.  Each of them MUST provide its own final punctuation,
+%%% except for \shownote{}, \showDOI{}, and \showURL{}.  The latter two
+%%% do not use final punctuation, in order to avoid confusing it with
+%%% the Web address.
+%%%
+%%% To suppress output of a particular field, define its macro to expand
+%%% to an empty string, or better, \unskip, like this:
+%%%
+%%% \newcommand{\showDOI}[1]{\unskip}   % LaTeX syntax
+%%%
+%%% \def \showDOI #1{\unskip}           % plain TeX syntax
+%%%
+%%% ====================================================================
+
+\ifx \showCODEN    \undefined \def \showCODEN     #1{\unskip}     \fi
+\ifx \showDOI      \undefined \def \showDOI       #1{{\tt DOI:}\penalty0{#1}\ }
+  \fi
+\ifx \showISBNx    \undefined \def \showISBNx     #1{\unskip}     \fi
+\ifx \showISBNxiii \undefined \def \showISBNxiii  #1{\unskip}     \fi
+\ifx \showISSN     \undefined \def \showISSN      #1{\unskip}     \fi
+\ifx \showLCCN     \undefined \def \showLCCN      #1{\unskip}     \fi
+\ifx \shownote     \undefined \def \shownote      #1{#1}          \fi
+\ifx \showarticletitle \undefined \def \showarticletitle #1{#1}   \fi
+\ifx \showURL      \undefined \def \showURL       #1{#1}          \fi
+
+\bibitem{debole2005analysis}
+{Franca Debole} {and} {Fabrizio Sebastiani}. 2005.
+\newblock \showarticletitle{An analysis of the relative hardness of
+  Reuters-21578 subsets}.
+\newblock {\em Journal of the American Society for Information Science and
+  technology\/} {56}, 6 (2005), 584--596.
+\newblock
+
+
+\bibitem{Sebastiani:2002:MLA:505282.505283}
+{Fabrizio Sebastiani}. 2002.
+\newblock \showarticletitle{Machine Learning in Automated Text Categorization}.
+\newblock {\em ACM Comput. Surv.\/} {34}, 1 (March 2002), 1--47.
+\newblock
+\showISSN{0360-0300}
+\showDOI{%
+\url{http://dx.doi.org/10.1145/505282.505283}}
+
+
+\bibitem{Shi-sigkdd-2012}
+{Kent Shi} {and} {Kamal Ali}. 2012.
+\newblock \showarticletitle{GetJar Mobile Application Recommendations with Very
+  Sparse Datasets}. In {\em Proceedings of the 18th ACM SIGKDD International
+  Conference on Knowledge Discovery and Data Mining} {\em (KDD '12)}. ACM, New
+  York, NY, USA, 204--212.
+\newblock
+\showISBNx{978-1-4503-1462-6}
+\showDOI{%
+\url{http://dx.doi.org/10.1145/2339530.2339563}}
+
+
+\bibitem{Yan-mobisys-2011}
+{Bo Yan} {and} {Guanling Chen}. 2011.
+\newblock \showarticletitle{AppJoy: Personalized Mobile Application Discovery}.
+  In {\em Proceedings of the 9th International Conference on Mobile Systems,
+  Applications, and Services} {\em (MobiSys '11)}. ACM, New York, NY, USA,
+  113--126.
+\newblock
+\showISBNx{978-1-4503-0643-0}
+\showDOI{%
+\url{http://dx.doi.org/10.1145/1999995.2000007}}
+
+
+\end{thebibliography}

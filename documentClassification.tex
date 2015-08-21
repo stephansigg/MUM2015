@@ -1,0 +1,262 @@
+\documentclass{sigchi}
+
+% Use this command to override the default ACM copyright statement
+% (e.g. for preprints).  Consult the conference website for the
+% camera-ready copyright statement.
+
+%% EXAMPLE BEGIN -- HOW TO OVERRIDE THE DEFAULT COPYRIGHT STRIP -- (July 22, 2013 - Paul Baumann)
+% \toappear{Permission to make digital or hard copies of all or part of this work for personal or classroom use is      granted without fee provided that copies are not made or distributed for profit or commercial advantage and that copies bear this notice and the full citation on the first page. Copyrights for components of this work owned by others than ACM must be honored. Abstracting with credit is permitted. To copy otherwise, or republish, to post on servers or to redistribute to lists, requires prior specific permission and/or a fee. Request permissions from permissions@acm.org. \\
+% {\emph{CHI'14}}, April 26--May 1, 2014, Toronto, Canada. \\
+% Copyright \copyright~2014 ACM ISBN/14/04...\$15.00. \\
+% DOI string from ACM form confirmation}
+%% EXAMPLE END -- HOW TO OVERRIDE THE DEFAULT COPYRIGHT STRIP -- (July 22, 2013 - Paul Baumann)
+
+% Arabic page numbers for submission.  Remove this line to eliminate
+% page numbers for the camera ready copy
+% \pagenumbering{arabic}
+
+% Load basic packages
+\usepackage{balance}  % to better equalize the last page
+\usepackage{graphics} % for EPS, load graphicx instead 
+\usepackage[T1]{fontenc}
+\usepackage{txfonts}
+\usepackage{mathptmx}
+\usepackage[pdftex]{hyperref}
+\usepackage{color}
+\usepackage{booktabs}
+\usepackage{textcomp}
+% Some optional stuff you might like/need.
+\usepackage{microtype} % Improved Tracking and Kerning
+% \usepackage{hypercap}  % Fixes bug in hyperref caption linking
+\usepackage{ccicons}  % Cite your images correctly!
+% \usepackage[utf8]{inputenc} % for a UTF8 editor only
+
+% If you want to use todo notes, marginpars etc. during creation of your draft document, you
+% have to enable the "chi_draft" option for the document class. To do this, change the very first
+% line to: "\documentclass[chi_draft]{sigchi}". You can then place todo notes by using the "\todo{...}"
+% command. Make sure to disable the draft option again before submitting your final document.
+\usepackage{todonotes}
+
+% Paper metadata (use plain text, for PDF inclusion and later
+% re-using, if desired).  Use \emtpyauthor when submitting for review
+% so you remain anonymous.
+\def\plaintitle{Lightweight Document Classification for Device-based APP-Recommendation: A Graph-based Approach}
+\def\plainauthor{% ANONYMISEDFirst Author, Second Author, Third Author,
+}
+\def\emptyauthor{}
+\def\plainkeywords{App recommendation; Document classification; Summarization}
+\def\plaingeneralterms{Document classification}
+
+% llt: Define a global style for URLs, rather that the default one
+\makeatletter
+\def\url@leostyle{%
+  \@ifundefined{selectfont}{
+    \def\UrlFont{\sf}
+  }{
+    \def\UrlFont{\small\bf\ttfamily}
+  }}
+\makeatother
+\urlstyle{leo}
+
+% To make various LaTeX processors do the right thing with page size.
+\def\pprw{8.5in}
+\def\pprh{11in}
+\special{papersize=\pprw,\pprh}
+\setlength{\paperwidth}{\pprw}
+\setlength{\paperheight}{\pprh}
+\setlength{\pdfpagewidth}{\pprw}
+\setlength{\pdfpageheight}{\pprh}
+
+% Make sure hyperref comes last of your loaded packages, to give it a
+% fighting chance of not being over-written, since its job is to
+% redefine many LaTeX commands.
+\definecolor{linkColor}{RGB}{6,125,233}
+\hypersetup{%
+  pdftitle={\plaintitle},
+% Use \plainauthor for final version.
+%  pdfauthor={\plainauthor},
+  pdfauthor={\emptyauthor},
+  pdfkeywords={\plainkeywords},
+  bookmarksnumbered,
+  pdfstartview={FitH},
+  colorlinks,
+  citecolor=black,
+  filecolor=black,
+  linkcolor=black,
+  urlcolor=linkColor,
+  breaklinks=true,
+}
+
+% create a shortcut to typeset table headings
+% \newcommand\tabhead[1]{\small\textbf{#1}}
+
+% End of preamble. Here it comes the document.
+\begin{document}
+
+\title{\plaintitle}
+
+\numberofauthors{3}
+\author{%
+% ANONYMISED
+%   \alignauthor{1st Author Name\\
+%     \affaddr{Affiliation}\\
+%     \affaddr{City, Country}\\
+%     \email{e-mail address}}\\
+%   \alignauthor{2nd Author Name\\
+%     \affaddr{Affiliation}\\
+%     \affaddr{City, Country}\\
+%     \email{e-mail address}}\\
+%   \alignauthor{3rd Author Name\\
+%     \affaddr{Affiliation}\\
+%     \affaddr{City, Country}\\
+%     \email{e-mail address}}\\
+}
+
+\maketitle
+
+\begin{abstract}
+We consider the problem of lift document classification on mobile devices.
+Document classification is the task of automatically assigning a set of unlabeled documents into a set of predefined categories.
+This technique is relevant for app-recommendation systems on mobile phones. 
+While app-stores provide basic recommendation functionality, more advanced recommendation systems require fine-grained usage information available only locally on the mobile device. 
+However, due to severe resource restrictions on such devices, computational cost needs to be optimised. 
+In this paper, summarization as an approach to circumvent the curse of dimensionality is investigated. 
+High dimensional feature space can be reduced significantly by considering summarized document as a feature set, since it includes the most important information of the original document. 
+Graph-based summarization technique is applied on the classification process, and remarkably improves the performance of document classification.
+\end{abstract}
+
+\category{H.5.m.}{Information Interfaces and Presentation
+  (e.g. HCI)}{Miscellaneous} \category{See
+  \url{http://acm.org/about/class/1998/} for the full list of ACM
+  classifiers. This section is required.}{}{}
+
+\keywords{\plainkeywords}
+
+\section{Introduction}
+It has become easy to find an app for virtually any possible category but challenging to identify good and reliable apps from this overwhelming choice. 
+Although app-stores typically provide basic recommendation functionality, such systems favor apps with a bigger crowd of users such as corporation-developed apps or older and therefore better known apps.
+They can not take into account the individual interest of users and their usage habits. 
+This problem has been tackled by app recommendation systems which require local installation~\cite{Yan-mobisys-2011,Shi-sigkdd-2012}.
+However, these systems are highly resource demanding and therefore not applicable in practical everyday use.
+What is required is a computationally cheap approach that is feasible for the application on end-user mobile devices. 
+In this paper, we tackle this problem by considering summarization as an approach to circumvent the curse of dimensionality in document classification.
+
+Automatic document classification (also known as text categorization, or topic spotting) is the task of automatically sorting a set of documents into categories (or classes, or topics) from a predefined set~\cite{Sebastiani:2002:MLA:505282.505283}. 
+For app-recommendation systems, document classification is an essential component to group apps into categories according to their textual description, crawled, for instance, from online-appstores. 
+
+In document classification, one document is often represented as a vector of words (bag of words), and all these words are not that informative to be included in the final feature set. 
+Therefore feature selection should be applied not only to select the most relevant features, but to reduce the high dimensionality of feature vector space. 
+In this paper, text summarization will be considered as a feature selection technique to extract the least number of features with the most informativeness for each category.
+
+Online app-stores and the description of apps therein are subject to constant change. 
+Furthermore, a ground truth for correct classification is naturally missing. 
+In order to produce comparable results and to reliably measure the performance of our approach, we apply our approach to the Reuters-21578 corpus which is a standard benchmark for document classification. 
+It has been employed in multiple scientific publications in many research areas especially in information retrieval, natural language
+processing and machine learning. 
+The hidden semantic relationship between some categories and the skewed distribution of documents make Reuters-21578 corpus most
+interesting for document classification with respect to app recommendation systems~\cite{debole2005analysis}. 
+Moreover, it has several categories which own very few positive training examples; challenging the performance of the document classification system based on machine learning methods.
+The documents refer to the Reuters newswire in 1987 and the classification was done manually by personnel from Reuters Ltd. 
+Due to its large number of categories, different subsets of its categories have been adopted as dataset. 
+A subset of~30 categories will be taken into account for this project, with at least one positive training example and one test example.
+
+The rest of this document is orgainzed as follows. 
+In Section~\ref{sectionRelatedWork}, related work is reviewed. 
+Section~\ref{sectionMethodology} presents our approach.
+Section~\ref{sectionExperiments} details our results and section~\ref{sectionConclusion} concludes the discussion.
+
+
+\section{Related Work}\label{sectionRelatedWork}
+ADD APP RECOMMENDATION SYSTEMS
+
+On each page your material should fit within a rectangle of 7 $\times$
+9.15 inches (18 $\times$ 23.2 cm), centered on a US Letter page (8.5
+$\times$ 11 inches), beginning 0.85 inches (1.9 cm) from the top of
+the page, with a 0.3 inches (0.85 cm) space between two 3.35 inches
+(8.4 cm) columns. Right margins should be justified, not
+ragged. Please be sure your document and PDF are US letter and not A4.
+
+\section{Methodology}\label{sectionMethodology}
+The styles contained in this document have been modified from the
+default styles to reflect ACM formatting conventions. For example,
+content paragraphs like this one are formatted using the Normal style.
+
+\subsection{Preprocessing}\label{sectionPreprocessing}
+Your paper's title, authors and affiliations should run across the
+full width of the page in a single column 17.8 cm (7 in.) wide.  The
+title should be in Helvetica or Arial 18-point bold.  Authors' names
+should be in Times New Roman or Times Roman 12-point bold, and
+affiliations in 12-point regular.  
+
+See \texttt{{\textbackslash}author} section of this template for
+instructions on how to format the authors. For more than three
+authors, you may have to place some address information in a footnote,
+or in a named section at the end of your paper. Names may optionally
+be placed in a single centered row instead of at the top of each
+column. Leave one 10-point line of white space below the last line of
+affiliations.
+
+\subsection{Document Summarization}\label{sectionSummarization}
+
+Every submission should begin with an abstract of about 150 words,
+followed by a set of Author Keywords and ACM Classification
+Keywords. The abstract and keywords should be placed in the left
+column of the first page under the left half of the title. The
+abstract should be a concise statement of the problem, approach, and
+conclusions of the work described. It should clearly state the paper's
+contribution to the field of HCI\@.
+
+\subsection{Classification}\label{sectionClassification}
+
+Please use a 10-point Times New Roman or Times Roman font or, if this
+is unavailable, another proportional font with serifs, as close as
+possible in appearance to Times Roman 10-point. Other than Helvetica
+or Arial headings, please use sans-serif or non-proportional fonts
+only for special purposes, such as source code text.
+
+\section{Experiments and Results}\label{sectionExperiments}
+
+The heading of a section should be in Helvetica or Arial 9-point bold,
+all in capitals. Sections should \textit{not} be numbered.
+
+
+\section{Conclusion}\label{sectionConclusion}
+
+Place figures and tables at the top or bottom of the appropriate
+column or columns, on the same page as the relevant text (see
+Figure~\ref{fig:figure1}). A figure or table may extend across both
+columns to a maximum width of 17.78 cm (7 in.).
+
+% Balancing columns in a ref list is a bit of a pain because you
+% either use a hack like flushend or balance, or manually insert
+% a column break.  http://www.tex.ac.uk/cgi-bin/texfaq2html?label=balance
+% multicols doesn't work because we're already in two-column mode,
+% and flushend isn't awesome, so I choose balance.  See this
+% for more info: http://cs.brown.edu/system/software/latex/doc/balance.pdf
+%
+% Note that in a perfect world balance wants to be in the first
+% column of the last page.
+%
+% If balance doesn't work for you, you can remove that and
+% hard-code a column break into the bbl file right before you
+% submit:
+%
+% http://stackoverflow.com/questions/2149854/how-to-manually-equalize-columns-
+% in-an-ieee-paper-if-using-bibtex
+%
+% Or, just remove \balance and give up on balancing the last page.
+%
+\balance{}
+
+
+% REFERENCES FORMAT
+% References must be the same font size as other body text.
+\bibliographystyle{SIGCHI-Reference-Format}
+\bibliography{documentClassification}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
