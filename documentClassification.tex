@@ -303,29 +303,18 @@ The summary is then composed from sentences in this path.
 All the summarized documents of each category then make a feature set following the bag-of-words assumption.
 
 \subsection{Classification}\label{sectionClassification}
-KNN~\cite{5190062} is a classical statistical pattern recognition algorithm. 
-Its idea is very simple: Similarity between a text document to be classified and all train samples in each category will be calculated according to a similarity computing strategy.
+We utilise a is a classical statistical pattern recognition algorithm~\cite{5190062}. 
+Its idea is very simple: Similarity between a text document to be classified and all training samples in each category will be calculated according to a similarity computing strategy.
 Finally it will be assigned to the category with the maximum sum of similarities.
-After feature selection phase, there is only one document in each train set category which is actually our feature set. 
-In fact, the similarity has to be computed only between the test document and just one train sample.
-%%%%%%%%%%%%%%%%%%%%%%%%
 
-Where x is the document to be classified, fi is the ith feature set, ci is the ith category, and y(fi,ci) {0,1} denotes whether feature set belongs to category c i ( if belongs to ci then y(fi,ci) 1, otherwise y(fi,ci ) 0).
+After the feature selection phase, there is only one document in each training set category which is actually our feature set. 
+In fact, the similarity has to be computed only between the test document and just one training sample.
+\begin{equation}
+ y(x,c_i)=\mbox{sim}(x,f_i)y(f_i,c_i)
+\end{equation}
+In this equation, $x$ is the document to be classified, $f_i$ is the $i$-th feature set, $c_i$ is the $i$-th category, and $y(f_i,c_i)\in\{0,1\}$ denotes whether the feature set belongs to category $c_i$.
 
-\subsection{Evaluation}
-Precision, Recall, and F-measure are widely used among the various methods to determine the effectiveness of automatic text classification. 
-These measures are computed with regards to classification of a text. 
-A document can be classified~\cite{ikonomakis2005text} as True Positive(TP): a document being classified correctly as relating to a category, False Positive(FP): a document that is said to be related to the category incorrectly, False Negative(FN): a document that is not marked as related to a category but should be, and True Negative(TN): a document that should not be marked as being in a particular category and
-is not.
-Both precision and recall are therefore based on an understanding and measure of relevance. 
-Recall is the proportion of relevant material actually retrieved, and Precision is the proportion of retrieved material actually relevant.
-Precision and Recall are defined as follow:
-%%%
-In order to estimate the effectiveness of the system, Precision and Recall are often combined and used in evaluation process as F-measure. 
-In general, it’s defined as following formula:
-%%%
-In Where P and R denote Precision and Recall respectively. 
-By assigning 1 to β, F1-measure is produced, which is a harmonic mean of precision (P) and recall (R).
+For evaluation, we exploit Precision, Recall, and F-measure which are widely used among the various methods to determine the effectiveness of automatic text classification~\cite{ikonomakis2005text, 5950}.
 
 \section{Experiments and Results}\label{sectionExperiments}
 Subset of thirty categories from Reuters-21578 corpus is randomly chosen as the dataset for the experiment. 
