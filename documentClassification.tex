@@ -175,30 +175,19 @@ At the same time, recommendations have started to emerge on the marketplaces the
 First works on mobile app recommendations were focused on adopting standard content-based and collaborative filtering techniques for generating recommendations. 
 Most of these works operated directly on the marketplace and relied on application popularity, such as installation counts and click stream data, or ratings to generate recommendations~\cite{Bostrom:2008:CIU:1409240.1409280}. 
 However, as shown by Falaki et al.~\cite{Falaki-mobisys-2010}, installation counts are a poor indicator of user interest as users tend to try out applications without necessarily ever using them again.
-Moreover, some users may not bother uninstalling apps but rather keep apps that have been tried only once. %%TODO: do we have any figures or reference for this?
-These apps will then receive the same weight as those that are used regularly. 
-The same holds for ratings which do not necessarily reflect true user interest. 
-For example, many users give a one star rating for apps that do not function properly on their device~\cite{Yan-mobisys-2011}. 
-At the same time, usage patterns have been shown to be highly contextualized, with many applications only being used in specific contexts~\cite{Bohmer-mobilechi-2011}.
+The same holds for ratings which do not necessarily reflect true user interest~\cite{Yan-mobisys-2011}. 
+At the same time, user habits and personalised usage patterns have a high potential to significantly improve app recommendation systems~\cite{Bohmer-mobilechi-2011}.
 
-Motivated by the findings of the application usage studies, most recent works on app recommendation rely on usage information gathered directly from the device. 
+Motivated by these findings, most recent work on app recommendation relies on usage information gathered directly from the device. 
 For example, AppJoy~\cite{Yan-mobisys-2011} considers a weighted model where recency, frequency, and duration of interactions are taken into consideration, whereas GetJar~\cite{Shi-sigkdd-2012} and the Djinn system of Karatzoglou et al.~\cite{Karatzoglou-cikm-2012} consider information derived from binary usage patterns. AppJoy relies on a constantly running background process that monitors app use, while both GetJar and our technique can be used with crowdsourced,
 infrequently sampled data.
 Both AppJoy and GetJar are based on standard recommender system techniques, whereas Djinn is based on tensor-factorization model that additionally considers also the usage context of applications. 
 Also other works on integrating context information as part of app recommendations have been proposed~\cite{Mizzaro-carr-2014, Davidsson-carr-2011, woerndl-2007}. 
-Finally, the AppAware system of Girardello and Michahelles~\cite{Girardello-mobilechi-2010} provides a Twitter-style social media based systems where users can receive app recommendations from friends and collectively nearby users. 
 
-%Another issue with these works is that some applications are only used in specific contexts~\cite{}. 
-
-%Application marketplaces, including Google Play, can offer personalized recommendations based on the download of the user and the ratings of the applications. In any case, they do not have information from the real usage of the application: whether the app have been used later than just couple of days after installation, or months later than the positive rating have been given. The users may not actually interact equally with all the applications they have installed~\cite{Falaki-mobisys-2010}.
-
-% Previous extended recommendation systems for mobile applications have based on, for example, ratings or installations~\cite{Shi-sigkdd-2012, Girardello-mobilechi-2010} or user's context information.
-
-% AppJoy~\cite{Yan-mobisys-2011} is an application to monitor actual usage patterns of mobile applications, but it does not perform a long-term analysis of usage patterns between different device models and users. AppJoy had 4600 devices, recommended apps based on frequency of use with decay over time, observed that recommended apps were used longer than spontaneously discovered apps.
-
-Usage trends of mobile applications have been monitored by using download counts~\cite{Petsas-imc-2013} or in case of usage, only focusing on short period of time~\cite{Bohmer-mobilechi-2011}.
 Recently, the AppTrends approach proposed to consider actual usage data and to base the recommendation on frequency of co-usage of apps~\cite{7072833}.
-The show that recommendations should consider co-usage of apps as particular use cases on mobile devices involve a common set of apps rather than individual apps only. 
+They show that recommendations should consider co-usage of apps as particular use cases on mobile devices involve a common set of apps rather than individual apps only. 
+While these systems can provide better and more personalised recommendation results than the basic approaches provided via app stores, the high resource demands of the mobile-based solutions render practical use impossible.
+We therefore investigate lightweight document classification to mitigate this problem.
 
 
 As it is mentioned before, feature selection as a fundamental task plays an important role in the overall performance of automatic DC. 
